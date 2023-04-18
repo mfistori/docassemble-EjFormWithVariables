@@ -1,0 +1,469 @@
+---
+include:
+  - docassemble.AssemblyLine:assembly_line.yml
+  - docassemble.ALMassachusetts:al_massachusetts.yml
+---
+metadata:
+  title: |
+    EJ Screening Form
+  short title: |
+    EJ Screening Form
+  authors:
+    - Megan Fistori
+    - Madison Lombardo
+---
+mandatory: True
+comment: |
+  Global interview metadata
+variable name: interview_metadata["ej_form__with_variables"]
+data:
+  al_weaver_version: "1.10.0a2"
+  generated on: "2023-04-12"
+  title: >-
+    EJ Screening Form
+  short title: >-
+    EJ Screening Form
+  description: |-
+    This interview helps someone in Massachusetts fill Out The EJ Form.
+  allowed courts: []
+  categories: []
+  typical role: "na"
+  generate download screen: True
+---
+code: |
+  interview_metadata['main_interview_key'] =  'ej_form__with_variables'
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "MA"
+---
+code: |
+  github_repo_name =  'docassemble-EjFormWithVariables'
+---
+code: |
+  interview_short_title = "Fill Out The EJ Form"
+---
+code: |
+  al_form_type = "other_form" 
+---
+objects:
+  - users: ALPeopleList.using(there_are_any=True)
+---
+sections:
+  - review_ej_form__with_variables: Review your answers
+---
+#################### Interview order #####################
+comment: |
+  Controls order and branching logic for questions specific to this form
+id: interview_order_ej_form__with_variables
+code: |
+  # Set the allowed courts for this interview
+  allowed_courts = interview_metadata["ej_form__with_variables"]["allowed courts"]
+  nav.set_section("review_ej_form__with_variables")
+  user_role = "na"
+  user_ask_role = "na"
+  users.gather()
+  set_parts(subtitle=str(users))
+  Welcome_to_the_EJ_Screening_Form
+  Project_Name__Description
+  set_progress(12)
+  MEPA_Filing_Date
+  Project_Website
+  Project_Type
+  set_progress(24)
+  Permits
+  Project_Location
+  FEMA_Flood_Plain
+  set_progress(36)
+  GHG_Emissions
+  MEPA_Review
+  EJ_Population__Characteristics
+  set_progress(48)
+  Vulnerable_Health_EJ_Criteria
+  Environmental__Public_Health_Impacts
+  Environmental_Benefits
+  set_progress(60)
+  Public_Request_Accomodations
+  users[0].email
+  interview_order_ej_form__with_variables = True
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+mandatory: True
+code: |
+  al_intro_screen
+  ej_form__with_variables_intro
+  interview_order_ej_form__with_variables
+  signature_date
+  # Store anonymous data for analytics / statistics
+  store_variables_snapshot(
+      persistent=True,
+      data={
+          "zip": showifdef("users[0].address.zip"),
+          "reached_interview_end": True,
+      },
+  )
+  ej_form__with_variables_download
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: EJ_Screening_Form
+continue button field: ej_form__with_variables_intro
+question: |
+  EJ Screening Form
+subquestion: |
+  This interview will help you fill Out The EJ Form.
+  
+  Before you get started, please gather:
+  
+  1. Project Name
+  1. Project Type
+  1. 
+  
+  When you are finished, you will need to:
+  
+  1. File
+  1. Consult our group at xxx
+  
+  Most people take about _______ minutes to finish this interview.
+---
+id: Welcome to the EJ Screening Form
+question: |
+  Welcome to the EJ Screening Form
+subquestion: |
+  [TBD INFO Screen]
+continue button field: Welcome_to_the_EJ_Screening_Form
+---
+id: Project Name Description
+question: |
+  Project Name & Description
+subquestion: |
+  (1) What is the name of your project? 
+  
+  (2) Provide a brief project description, including overall size of the project site and square footage of proposed buildings and structures if known.
+fields:
+  - "Project description": project_description
+  - "Project name": project_name
+continue button field: Project_Name__Description
+---
+id: MEPA Filing Date
+question: |
+  MEPA Filing Date
+subquestion: |
+  What is the anticipated date of MEPA filing?
+fields:
+  - "Date of Mepa filing": mepa_filing_date
+    datatype: date
+continue button field: MEPA_Filing_Date
+---
+id: Project Website
+question: |
+  Project Website
+subquestion: |
+  What is the public website for project or other physical location where project materials can be obtained (if available)
+fields:
+  - "Project website": project_website
+continue button field: Project_Website
+---
+id: Project Type
+question: |
+  Project Type
+subquestion: |
+  What is the Project Type (Select All that Apply)?
+fields:
+  - "Project type": project_type
+    datatype: checkboxes
+    choices:
+      - Article 97
+      - Agriculture
+      - Airport
+      - Aquaculture/Shellfish
+      - Beach/Coastal Nourishment
+      - Coastal Infrastructure
+      - Commercial - Office/Lab/R&D
+      - Commercial - Hotel
+      - Commercial - Warehouse
+      - Commercial- Retail
+      - Dam Removal
+      - Dam Repair/Replacement
+      - Dredging
+      - Ecological Restoration
+      - Energy Generation
+      - Energy Storage
+      - Energy Transmission
+      - Industrial
+      - Institutional - Educational
+continue button field: Project_Type
+---
+id: Permits
+question: |
+  Permits
+subquestion: |
+  List all anticipated state, local and federal permits needed for the project (if known)
+fields:
+  - "Local permits": local_permits
+  - "Federal permits": federal_permits
+  - "State permits": state_permits
+continue button field: Permits
+---
+id: Project Location
+question: |
+  Project Location
+subquestion: |
+  List the Municipality and Zip Code for Project (if known)
+fields:
+  - "Zip code": zip_code
+continue button field: Project_Location
+---
+id: FEMA Flood Plain
+question: |
+  FEMA Flood Plain
+subquestion: |
+  Is the project site within a mapped 100-year FEMA flood plain?  Select One.
+fields:
+  - "Project site flood plain": project_site_flood_plain
+    input type: radio
+    choices:
+      - Yes
+      - No
+      - Unknown
+continue button field: FEMA_Flood_Plain
+---
+id: GHG Emissions
+question: |
+  GHG Emissions
+subquestion: |
+  Estimated GHG emissions of conditioned spaces:
+fields:
+  - "Ghg emissions": ghg_emissions
+continue button field: GHG_Emissions
+---
+id: MEPA Review
+question: |
+  MEPA Review
+subquestion: |
+  List anticipated MEPA review thresholds (301 CMR 11.03) (if known)
+fields:
+  - "Mepa review": mepa_review
+continue button field: MEPA_Review
+---
+id: EJ Population Characteristics
+question: |
+  EJ Population & Characteristics
+subquestion: |
+  Identify EJ populations and characteristics (Minority, Income, English Isolation) within 5 miles of project site:
+fields:
+  - "Ej populations": ej_populations
+continue button field: EJ_Population__Characteristics
+---
+id: Vulnerable Health EJ Criteria
+question: |
+  Vulnerable Health EJ Criteria
+subquestion: |
+  Identify any municipality or census tract meeting the definition of “vulnerable health EJ criteria” in the DPH EJ Tool located in whole or in part within a 1 mile radius of the project site
+fields:
+  - "Vulnerable health ej criteria": vulnerable_health_EJ_criteria
+continue button field: Vulnerable_Health_EJ_Criteria
+---
+id: Environmental Public Health Impacts
+question: |
+  Environmental & Public Health Impacts
+subquestion: |
+  Identify potential short-term and long-term environmental and public health impacts that may affect EJ Populations and any anticipated mitigation
+fields:
+  - "Public health impacts": public_health_impacts
+continue button field: Environmental__Public_Health_Impacts
+---
+id: Environmental Benefits
+question: |
+  Environmental Benefits
+subquestion: |
+  Identify project benefits, including “Environmental Benefits” as defined in 301 CMR 11.02, that may improve environmental conditions or public health of the EJ population
+fields:
+  - "Environmental benefits": environmental_benefits
+continue button field: Environmental_Benefits
+---
+id: Public Request Accomodations
+question: |
+  Public Request Accomodations
+subquestion: |
+  Describe how the community can request a meeting to discuss the project, and how the community can request oral language interpretation services at the meeting . Specify how to request other accommodations, including meetings after business hours and at locations near public transportation.
+fields:
+  - "Public request accomodations": public_request_accomodations
+continue button field: Public_Request_Accomodations
+---
+id: preview ej_form__with_variables
+question: |
+  Preview your form before you sign it
+subquestion: |
+  Here is a preview of the form you will sign on the next page.   
+  
+  ${ al_recipient_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_ej_form__with_variables'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue and sign your form.
+continue button field: ej_form__with_variables_preview_question    
+---
+code: |
+  signature_fields = []
+---
+id: ej form with variables review screen
+event: review_ej_form__with_variables
+question: |
+  Review your answers
+review:
+  - Edit: ghg_emissions
+    button: |
+      **Ghg emissions**:
+      ${ ghg_emissions }
+  - Edit: mepa_review
+    button: |
+      **Mepa review**:
+      ${ mepa_review }
+  - Edit: users.revisit
+    button: |
+      **Users**
+
+      % for item in users:
+        * ${ item }
+      % endfor
+  - Edit: public_request_accomodations
+    button: |
+      **Public request accomodations**:
+      ${ public_request_accomodations }
+  - Edit: mepa_filing_date
+    button: |
+      **Date of Mepa filing**:
+      ${ mepa_filing_date }
+  - Edit: project_type
+    button: |
+      **Project type**:
+      ${ project_type }
+  - Edit: project_website
+    button: |
+      **Project website**:
+      ${ project_website }
+  - Edit: local_permits
+    button: |
+      **Local permits**:
+      ${ local_permits }
+  - Edit: vulnerable_health_EJ_criteria
+    button: |
+      **Vulnerable health ej criteria**:
+      ${ vulnerable_health_EJ_criteria }
+  - Edit: zip_code
+    button: |
+      **Zip code**:
+      ${ zip_code }
+  - Edit: federal_permits
+    button: |
+      **Federal permits**:
+      ${ federal_permits }
+  - Edit: project_site_flood_plain
+    button: |
+      **Project site flood plain**:
+      ${ project_site_flood_plain }
+  - Edit: environmental_benefits
+    button: |
+      **Environmental benefits**:
+      ${ environmental_benefits }
+  - Edit: ej_populations
+    button: |
+      **Ej populations**:
+      ${ ej_populations }
+  - Edit: project_description
+    button: |
+      **Project description**:
+      ${ project_description }
+  - Edit: public_health_impacts
+    button: |
+      **Public health impacts**:
+      ${ public_health_impacts }
+  - Edit: project_name
+    button: |
+      **Project name**:
+      ${ project_name }
+  - Edit: state_permits
+    button: |
+      **State permits**:
+      ${ state_permits }
+---
+continue button field: users.revisit
+question: |
+  Edit users
+subquestion: |
+  ${ users.table }
+
+  ${ users.add_action() }
+---
+table: users.table
+rows: users
+columns:
+  - Email: |
+      row_item.email if defined("row_item.email") else ""
+  - Name: |
+      row_item.name.full() if defined("row_item.name.first") else ""
+edit:
+  - email
+  - name.first
+confirm: True
+
+---
+id: download ej_form__with_variables
+event: ej_form__with_variables_download
+question: |
+  All done
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+  
+  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
+
+  ${ action_button_html(url_action('review_ej_form__with_variables'), label='Edit answers', color='info') }
+  
+  
+  ${ al_user_bundle.download_list_html() }
+  
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
+
+progress: 100
+---
+# ALDocument objects specify the metadata for each template
+objects:
+  - ej_form__with_variables_Post_interview_instructions: ALDocument.using(title="Instructions", filename="ej_form__with_variables_next_steps.docx", enabled=True, has_addendum=False)
+  - ej_form__with_variables_attachment: ALDocument.using(title="EJ Screening Form", filename="ej_form__with_variables", enabled=True, has_addendum=False, )
+---
+# Bundles group the ALDocuments into separate downloads, such as for court and for the user
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[ej_form__with_variables_Post_interview_instructions, ej_form__with_variables_attachment], filename="ej_form__with_variables", title="All forms to download for your records", enabled=True)
+  - al_recipient_bundle: ALDocumentBundle.using(elements=[ej_form__with_variables_attachment],  filename="ej_form__with_variables", title="All forms to file", enabled=True)
+---
+# Each attachment defines a key in an ALDocument. We use `i` as the placeholder here so the same template is 
+# used for "preview" and "final" keys, and logic in the template checks the value of 
+# `i` to show or hide the user's signature
+attachment:
+  name: Post-interview-Instructions
+  filename: ej_form__with_variables_next_steps
+  docx template file: ej_form__with_variables_next_steps.docx
+  variable name: ej_form__with_variables_Post_interview_instructions[i]
+  skip undefined: True
+---
+attachment:
+  name: ej form  with variables
+  filename: ej_form__with_variables
+  variable name: ej_form__with_variables_attachment[i]
+  skip undefined: True
+  docx template file: ej_form__with_variables.docx
+
+
+
