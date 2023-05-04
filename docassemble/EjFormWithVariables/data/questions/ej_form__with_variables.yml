@@ -116,47 +116,52 @@ comment: |
 id: EJ_Screening_Form
 continue button field: ej_form__with_variables_intro
 question: |
-  EJ Screening Form
+  Environmental Justice Screening Form
 subquestion: |
-  This interview will help you fill Out The EJ Form.
+  This interview will help you fill out the Environmental Justice Form.
   
   Before you get started, please gather:
   
-  1. Project Name
-  1. Project Type
-  1. 
+  1. Previously submitted Environmental Notification Form "ENF"
+  1. Information related to the Project site which may include permits, incorporation documents, location and zoning documents. 
+  1. General Company or Project owner information
   
   When you are finished, you will need to:
   
-  1. File
-  1. Consult our group at xxx
+  1. Consult with the Secretary of Energy and Environmental Affairs and any Participating Agency 
+  1. File completed form electronically to MEPA@mass.gov by 5:00 PM on the submittal deadline.
   
-  Most people take about _______ minutes to finish this interview.
+  Most people take about 30 minutes to finish this interview.
 ---
 id: Welcome to the EJ Screening Form
 question: |
-  Welcome to the EJ Screening Form
+  Welcome to the Environmental Justice Screening Form
 subquestion: |
-  [TBD INFO Screen]
+  According to 301 CMR 11.05(4), if one or more Environmental Justice “EJ” Populations are located around the Project, you must provide public notice to affected Populations. 
+
+  What is the Massachusetts Environmental Policy Act Office “MEPA” review process? 
+  
+  This is the public review of potential environmental impacts of projects that may require state agency action.
+  
+  The goal is for state agencies to review the impact of projects and use best efforts to avoid, minimize, and reduce damage to the environment. To the extent damage to the environment cannot be avoided, state agencies will work with you to minimize and reduce damage to the environment to the maximum extent practicable.
+ 
 continue button field: Welcome_to_the_EJ_Screening_Form
 ---
 id: Project Name Description
 question: |
-  Project Name & Description
+  Project Name and Description
 subquestion: |
-  (1) What is the name of your project? 
-  
-  (2) Provide a brief project description, including overall size of the project site and square footage of proposed buildings and structures if known.
+  Provide name of project and a brief project description, including size of the project site and proposed structures.
 fields:
-  - "Project description": project_description
   - "Project name": project_name
+  - "Project description": project_description
 continue button field: Project_Name__Description
 ---
 id: MEPA Filing Date
 question: |
   MEPA Filing Date
 subquestion: |
-  What is the anticipated date of MEPA filing?
+  What is the date of MEPA filing?
 fields:
   - "Date of Mepa filing": mepa_filing_date
     datatype: date
@@ -166,46 +171,45 @@ id: Project Website
 question: |
   Project Website
 subquestion: |
-  What is the public website for project or other physical location where project materials can be obtained (if available)
+  Provide public website for project or the location where project informaiton can be found.
 fields:
   - "Project website": project_website
 continue button field: Project_Website
 ---
 id: Project Type
 question: |
-  Project Type
-subquestion: |
-  What is the Project Type (Select All that Apply)?
+  Select the Project Type
 fields:
   - "Project type": project_type
     datatype: checkboxes
     choices:
-      - Article 97
-      - Agriculture
       - Airport
       - Aquaculture/Shellfish
       - Beach/Coastal Nourishment
       - Coastal Infrastructure
-      - Commercial - Office/Lab/R&D
-      - Commercial - Hotel
-      - Commercial - Warehouse
-      - Commercial- Retail
-      - Dam Removal
-      - Dam Repair/Replacement
-      - Dredging
+      - Commercial 
+      - Dam Removal/Repair
       - Ecological Restoration
-      - Energy Generation
-      - Energy Storage
-      - Energy Transmission
+      - Energy 
       - Industrial
-      - Institutional - Educational
+      - Marijuana
+      - Marine Industrial
+      - Master Plan 
+      - Other 
+      - Recreation
+      - Residential
+      - Resiliency
+      - Solid Waste
+      - Transportation 
+      - Wastewater
+      - Water Supply
 continue button field: Project_Type
 ---
 id: Permits
 question: |
   Permits
 subquestion: |
-  List all anticipated state, local and federal permits needed for the project (if known)
+  List state, local and federal permits needed for the project (write "N/A" if unknown)
 fields:
   - "Local permits": local_permits
   - "Federal permits": federal_permits
@@ -216,7 +220,7 @@ id: Project Location
 question: |
   Project Location
 subquestion: |
-  List the Municipality and Zip Code for Project (if known)
+  List the Zip Code for Project
 fields:
   - "Zip code": zip_code
 continue button field: Project_Location
@@ -225,7 +229,7 @@ id: FEMA Flood Plain
 question: |
   FEMA Flood Plain
 subquestion: |
-  Is the project site within a mapped 100-year FEMA flood plain?  Select One.
+  Is the project site within a FEMA flood plain?  
 fields:
   - "Project site flood plain": project_site_flood_plain
     input type: radio
@@ -239,63 +243,64 @@ id: GHG Emissions
 question: |
   GHG Emissions
 subquestion: |
-  Estimated GHG emissions of conditioned spaces:
+  Estimated GHG emissions of space:
 fields:
-  - "Ghg emissions": ghg_emissions
+  - "GHG emissions": ghg_emissions
 continue button field: GHG_Emissions
 ---
 id: MEPA Review
 question: |
   MEPA Review
 subquestion: |
-  List anticipated MEPA review thresholds (301 CMR 11.03) (if known)
+  List any MEPA review thresholds (write "N/A" if unknown)
 fields:
-  - "Mepa review": mepa_review
+  - "MEPA review": mepa_review
 continue button field: MEPA_Review
 ---
 id: EJ Population Characteristics
 question: |
-  EJ Population & Characteristics
+  EJ Population 
 subquestion: |
-  Identify EJ populations and characteristics (Minority, Income, English Isolation) within 5 miles of project site:
+  Identify traits of EJ Populations (Ex. Minority, Income, English Isolation) within 5 miles of project site. 
 fields:
-  - "Ej populations": ej_populations
+  - "EJ Populations": ej_populations
 continue button field: EJ_Population__Characteristics
 ---
 id: Vulnerable Health EJ Criteria
 question: |
   Vulnerable Health EJ Criteria
 subquestion: |
-  Identify any municipality or census tract meeting the definition of “vulnerable health EJ criteria” in the DPH EJ Tool located in whole or in part within a 1 mile radius of the project site
+  Identify any “vulnerable health EJ criteria” in the DPH EJ Tool located within a 1 mile radius of the project site.
 fields:
-  - "Vulnerable health ej criteria": vulnerable_health_EJ_criteria
+  - "Vulnerable Health EJ Criteria": vulnerable_health_EJ_criteria
 continue button field: Vulnerable_Health_EJ_Criteria
 ---
 id: Environmental Public Health Impacts
 question: |
-  Environmental & Public Health Impacts
+  Environmental and Public Health Impacts
 subquestion: |
-  Identify potential short-term and long-term environmental and public health impacts that may affect EJ Populations and any anticipated mitigation
+  Identify any short-term or long-term environmental and public health impacts that may affect EJ Populations.
 fields:
-  - "Public health impacts": public_health_impacts
+  - "Short Term Impacts": public_health_impacts
+  - "Long Term Impacts":  public_health_impacts 
 continue button field: Environmental__Public_Health_Impacts
 ---
 id: Environmental Benefits
 question: |
   Environmental Benefits
 subquestion: |
-  Identify project benefits, including “Environmental Benefits” as defined in 301 CMR 11.02, that may improve environmental conditions or public health of the EJ population
+  Identify project benefits, including “Environmental Benefits” that may improve environmental conditions or public health of the EJ population
 fields:
-  - "Environmental benefits": environmental_benefits
+  - "Environmental Benefits": environmental_benefits
 continue button field: Environmental_Benefits
 ---
 id: Public Request Accomodations
 question: |
   Public Request Accomodations
 subquestion: |
-  Describe how the community can request a meeting to discuss the project, and how the community can request oral language interpretation services at the meeting . Specify how to request other accommodations, including meetings after business hours and at locations near public transportation.
+  Describe how the community can request a meeting to discuss the project or any other accommodations.
 fields:
-  - "Public request accomodations": public_request_accomodations
+  - "Public Request Accomodations": public_request_accomodations
 continue button field: Public_Request_Accomodations
 ---
 id: preview ej_form__with_variables
